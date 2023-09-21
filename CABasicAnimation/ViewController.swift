@@ -8,12 +8,36 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    
+    lazy var exampleView: UIView = {
+        let view = UIView(frame: (CGRect(x: 1, y: view.center.y - 60, width: 120, height: 120)))
+        view.backgroundColor = UIColor.orange
+
+        return view
+    }()
+    
+    lazy var startButton: UIButton = {
+        let button = UIButton()
+        button.frame = CGRect(x: view.center.x - 70, y: view.frame.height - 80, width: 140, height: 50)
+        button.setTitle("Start", for: .normal)
+        button.backgroundColor = UIColor.blue
+        button.addTarget(self, action: #selector(startAnimating), for: .touchUpInside)
+        button.layer.cornerRadius = 25
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .cyan
+        
+        view.addSubview(exampleView)
+        view.addSubview(startButton)
     }
 
+    @objc func startAnimating() {
+        
+    }
 
 }
 
