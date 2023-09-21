@@ -9,7 +9,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    
     lazy var exampleView: UIView = {
         let view = UIView(frame: (CGRect(x: 1, y: view.center.y - 60, width: 120, height: 120)))
         view.backgroundColor = UIColor.orange
@@ -33,11 +32,36 @@ class ViewController: UIViewController {
         
         view.addSubview(exampleView)
         view.addSubview(startButton)
+        
+        print("Model Layer \(exampleView.layer.model())")
+        print("presentation Layer \(exampleView.layer.presentation())")
     }
 
     @objc func startAnimating() {
+        let basicAnimation = CABasicAnimation(keyPath: "position.x")
+        basicAnimation.fromValue = exampleView.frame.width / 2
+        basicAnimation.toValue = 250.0
+        basicAnimation.duration = CFTimeInterval(1.0)
         
+        exampleView.layer.position.x = 250
+
+        basicAnimation.delegate = self
+        exampleView.layer.add(basicAnimation, forKey:  nil)
     }
 
 }
 
+
+extension ViewController: CAAnimationDelegate {
+    func animationDidStart(_ anim: CAAnimation) {
+    }
+    
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        
+        
+        if flag {
+            print("Model Layer \(exampleView.layer.model())")
+            print("presentation Layer \(exampleView.layer.presentation())")
+        }
+    }
+}
